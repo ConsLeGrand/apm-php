@@ -1,7 +1,10 @@
 FROM php:8.1-apache
 
-# Installer SQLite
-RUN docker-php-ext-install pdo pdo_sqlite
+# Installer dépendances nécessaires pour PDO_SQLite
+RUN apt-get update && apt-get install -y \
+    libsqlite3-dev \
+    && docker-php-ext-install pdo pdo_sqlite \
+    && rm -rf /var/lib/apt/lists/*
 
 # Installer Elastic APM PHP Agent
 RUN curl -L -o /tmp/apm-agent.tar \
@@ -10,6 +13,7 @@ RUN curl -L -o /tmp/apm-agent.tar \
     && tar -xf /tmp/apm-agent.tar -C /opt/apm-agent-php \
     && rm /tmp/apm-agent.tar
 
+# Copier la conf APM et l'application
 COPY apm-agent-php.ini /usr/local/etc/php/conf.d/
 COPY . /var/www/html/
 

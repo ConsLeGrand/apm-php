@@ -22,5 +22,5 @@ RUN curl -L -o /tmp/apm-agent.tar \
 COPY apm-agent-php.ini /usr/local/etc/php/conf.d/
 COPY . /var/www/html/
 
-EXPOSE 80
+EXPOSE 8080
 CMD ["apache2-foreground"]

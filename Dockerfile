@@ -1,5 +1,10 @@
 FROM php:8.1-apache
 
+ENV ELASTIC_APM_SERVICE_NAME=omni356 \
+    ELASTIC_APM_SERVER_URL=http://fleet01.heritage.africa:8200 \
+    ELASTIC_APM_ENVIRONMENT=production \
+    ELASTIC_APM_LOG_LEVEL=INFO
+    
 # Installer dépendances nécessaires pour PDO_SQLite
 RUN apt-get update && apt-get install -y \
     libsqlite3-dev \
